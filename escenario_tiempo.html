@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Escenario 2: Lógica de Tiempo</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Reutilizamos estilos base */
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Share+Tech+Mono&display=swap");
+      body {
+        background: #e2e8f0;
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: 280px 350px 280px 220px;
+        gap: 20px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+      .panel {
+        border-radius: 8px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .panel-title {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-size: 14px;
+      }
+
+      .p-asis {
+        background: #fff1f2;
+        border: 2px solid #be123c;
+      }
+      .p-asis .panel-title {
+        color: #be123c;
+        border-bottom: 2px solid #be123c;
+      }
+      .p-logic {
+        background: #eff6ff;
+        border: 2px solid #2563eb;
+      }
+      .p-logic .panel-title {
+        color: #2563eb;
+        border-bottom: 2px solid #2563eb;
+      }
+      .p-tobe {
+        background: #f0f9ff;
+        border: 2px solid #0891b2;
+      }
+      .p-tobe .panel-title {
+        color: #0891b2;
+        border-bottom: 2px solid #0891b2;
+      }
+      .p-legend {
+        background: #f8fafc;
+        border-left: 1px solid #cbd5e1;
+        padding-left: 15px;
+      }
+
+      .logic-loop {
+        border: 2px dashed #2563eb;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        position: relative;
+      }
+      .logic-loop::before {
+        content: "BUCLE DIARIO (08:00 AM)";
+        position: absolute;
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #eff6ff;
+        color: #2563eb;
+        font-size: 10px;
+        padding: 0 5px;
+        font-weight: bold;
+      }
+
+      .decision-diamond {
+        width: 40px;
+        height: 40px;
+        background: #2563eb;
+        color: white;
+        margin: 10px auto;
+        transform: rotate(45deg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+      }
+      .decision-text {
+        transform: rotate(-45deg);
+        font-size: 8px;
+        text-align: center;
+      }
+
+      .tech-tag {
+        font-family: "Share Tech Mono";
+        font-size: 10px;
+        background: #1e293b;
+        color: #00ff9d;
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="panel p-asis">
+        <div class="panel-title">1. Problema (AS-IS)</div>
+        <div
+          style="
+            background: white;
+            border: 1px solid #fecdd3;
+            padding: 10px;
+            text-align: center;
+            transform: rotate(-2deg);
+          "
+        >
+          📝 Nota en Papel<br />
+          "Boda 20/Oct"
+        </div>
+        <div style="text-align: center; font-size: 30px; margin: 20px 0">
+          ⏳ ...
+        </div>
+        <div
+          style="
+            background: #be123c;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+          "
+        >
+          <i class="fas fa-times"></i> OLVIDO TOTAL
+        </div>
+      </div>
+
+      <div class="panel p-logic">
+        <div class="panel-title">2. Lógica del "Demonio" (TI)</div>
+
+        <div class="logic-loop">
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              gap: 10px;
+              margin-bottom: 10px;
+            "
+          >
+            <i class="fas fa-clock fa-spin"></i>
+            <span class="tech-tag">CRON JOB</span>
+          </div>
+
+          <div style="font-size: 12px">1. Leer todas las Reservas</div>
+          <div>⬇</div>
+
+          <div class="decision-diamond">
+            <div class="decision-text">¿Faltan<br />48h?</div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-size: 10px;
+              margin-top: -10px;
+            "
+          >
+            <span style="color: red">NO (Esperar)</span>
+            <span style="color: green">SÍ (Activar)</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 10px">⬇</div>
+        <div
+          style="
+            background: white;
+            border: 1px solid #93c5fd;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 12px;
+          "
+        >
+          <i class="fas fa-envelope"></i> Enviar Alerta
+        </div>
+      </div>
+
+      <div class="panel p-tobe">
+        <div class="panel-title">3. Solución (TO-BE)</div>
+        <div style="text-align: center; margin-bottom: 20px">
+          <i class="fas fa-cloud" style="font-size: 40px; color: #0891b2"></i>
+        </div>
+        <div
+          style="
+            background: #ecfeff;
+            border: 1px solid #0891b2;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+          "
+        >
+          🔔 <strong>NOTIFICACIÓN:</strong><br />
+          "Atención Cocina: Iniciar Pedido #202"
+        </div>
+        <div
+          style="
+            margin-top: auto;
+            font-size: 11px;
+            text-align: center;
+            color: #0891b2;
+          "
+        >
+          Resultado: Cero Olvidos
+        </div>
+      </div>
+
+      <div class="p-legend">
+        <div
+          style="
+            font-size: 12px;
+            font-weight: bold;
+            color: #64748b;
+            margin-bottom: 10px;
+          "
+        >
+          LEYENDA TÉCNICA
+        </div>
+        <div style="font-size: 11px; margin-bottom: 8px">
+          <i class="fas fa-clock"></i> <strong>Cron Job:</strong> Tarea
+          automática del servidor que se repite periódicamente.
+        </div>
+        <div style="font-size: 11px; margin-bottom: 8px">
+          💎 <strong>Rombo:</strong> Punto de decisión lógica (Sí/No).
+        </div>
+        <div style="font-size: 11px; margin-bottom: 8px">
+          <i class="fas fa-cloud"></i> <strong>Cloud DB:</strong> Base de datos
+          alojada en internet (accesible 24/7).
+        </div>
+        <div style="font-size: 11px">
+          ⚠️ <strong>Faltan 48h:</strong> Regla de negocio para alertas
+          preventivas.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

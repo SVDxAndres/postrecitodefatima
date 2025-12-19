@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Evidencias de Valor - El Postrecito</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Mono&display=swap");
+
+      body {
+        background-color: #f1f5f9;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        padding: 40px;
+      }
+
+      /* TÍTULOS DE SECCIÓN */
+      .evidence-label {
+        text-align: left;
+        width: 800px;
+        margin-bottom: -20px;
+        color: #64748b;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+        border-left: 4px solid #e91e63;
+        padding-left: 10px;
+      }
+
+      /* --- ESTILO GENERAL DE PANTALLAS (INTERFAZ) --- */
+      .screen-container {
+        width: 800px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+      }
+
+      .screen-header {
+        background: #1e293b;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+      }
+      .window-controls {
+        display: flex;
+        gap: 6px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .red {
+        background: #ff5f56;
+      }
+      .yellow {
+        background: #ffbd2e;
+      }
+      .green {
+        background: #27c93f;
+      }
+      .app-title {
+        font-size: 12px;
+        font-weight: 600;
+        color: #94a3b8;
+      }
+
+      .screen-body {
+        padding: 25px;
+        background: #f8fafc;
+      }
+
+      /* --- EVIDENCIA 1: DASHBOARD --- */
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .kpi-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid #e91e63;
+      }
+      .kpi-title {
+        font-size: 12px;
+        color: #64748b;
+        margin-bottom: 5px;
+      }
+      .kpi-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1e293b;
+      }
+      .kpi-trend {
+        font-size: 11px;
+        color: #10b981;
+        font-weight: 600;
+      }
+
+      .chart-box {
+        grid-column: 1 / -1;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .bar-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        gap: 10px;
+      }
+      .bar-label {
+        width: 120px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #334155;
+      }
+      .bar-track {
+        flex-grow: 1;
+        background: #e2e8f0;
+        height: 8px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        background: #e91e63;
+        border-radius: 4px;
+      }
+      .bar-val {
+        width: 40px;
+        font-size: 11px;
+        color: #64748b;
+        text-align: right;
+      }
+
+      /* --- EVIDENCIA 2: STOCK (SEMÁFORO) --- */
+      .stock-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .stock-table th {
+        background: #f1f5f9;
+        text-align: left;
+        padding: 12px;
+        font-size: 11px;
+        color: #64748b;
+        text-transform: uppercase;
+      }
+      .stock-table td {
+        padding: 12px;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 13px;
+        color: #334155;
+      }
+
+      .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: bold;
+        display: inline-block;
+      }
+      .st-critical {
+        background: #fee2e2;
+        color: #ef4444;
+        border: 1px solid #fecaca;
+      }
+      .st-ok {
+        background: #ecfdf5;
+        color: #059669;
+        border: 1px solid #a7f3d0;
+      }
+
+      /* --- EVIDENCIA 3: CRM CLIENTE --- */
+      .crm-layout {
+        display: flex;
+        gap: 20px;
+      }
+      .profile-card {
+        width: 250px;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #e2e8f0;
+      }
+      .avatar {
+        width: 80px;
+        height: 80px;
+        background: #e2e8f0;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        color: #94a3b8;
+      }
+      .client-name {
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 5px;
+      }
+      .loyalty-tag {
+        background: #eff6ff;
+        color: #3b82f6;
+        padding: 3px 10px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .history-list {
+        flex-grow: 1;
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        border: 1px solid #e2e8f0;
+      }
+      .history-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px dashed #e2e8f0;
+      }
+      .item-date {
+        color: #94a3b8;
+        font-size: 11px;
+      }
+      .item-desc {
+        font-weight: 500;
+        font-size: 13px;
+        color: #334155;
+      }
+
+      /* --- EVIDENCIA 4: TICKET --- */
+      .ticket-wrapper {
+        width: 300px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        position: relative;
+        border-bottom: 5px solid #e91e63;
+      }
+      .ticket-wrapper::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background: radial-gradient(circle, #f1f5f9 5px, transparent 6px);
+        background-size: 15px 15px;
+      }
+      .t-header {
+        text-align: center;
+        margin-bottom: 15px;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 10px;
+      }
+      .t-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      .t-total {
+        border-top: 1px dashed #000;
+        margin-top: 10px;
+        padding-top: 10px;
+        font-weight: bold;
+        font-size: 14px;
+      }
+      .t-footer {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 10px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="evidence-label">
+      EVIDENCIA 01: Dashboard Gerencial "Toma de Decisiones"
+    </div>
+    <div class="screen-container">
+      <div class="screen-header">
+        <div class="window-controls">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="app-title">SGI - Panel Principal</div>
+        <i class="fas fa-chart-pie"></i>
+      </div>
+      <div class="screen-body">
+        <div class="dashboard-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">VENTAS HOY</div>
+            <div class="kpi-value">S/. 1,540.00</div>
+            <div class="kpi-trend">
+              <i class="fas fa-arrow-up"></i> +12% vs Ayer
+            </div>
+          </div>
+          <div class="kpi-card" style="border-left-color: #3b82f6">
+            <div class="kpi-title">PEDIDOS ATENDIDOS</div>
+            <div class="kpi-value">42</div>
+            <div class="kpi-trend" style="color: #3b82f6">
+              <i class="fas fa-check"></i> 100% Entregados
+            </div>
+          </div>
+
+          <div class="chart-box">
+            <h4 style="margin-top: 0; color: #334155; font-size: 13px">
+              RANKING: PRODUCTOS ESTRELLA ⭐
+            </h4>
+            <div class="bar-group">
+              <div class="bar-label">1. Torta Chocolate</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 90%"></div>
+              </div>
+              <div class="bar-val">25 un.</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-label">2. Pie de Limón</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 65%; background: #3b82f6"
+                ></div>
+              </div>
+              <div class="bar-val">18 un.</div>
+            </div>
+            <div class="bar-group">
+              <div class="bar-label">3. Tres Leches</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  style="width: 40%; background: #10b981"
+                ></div>
+              </div>
+              <div class="bar-val">10 un.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="evidence-label">
+      EVIDENCIA 02: Reporte Automático de Insumos Críticos
+    </div>
+    <div class="screen-container">
+      <div class="screen-header">
+        <div class="window-controls">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="app-title">Módulo de Almacén - Alertas</div>
+        <i class="fas fa-boxes"></i>
+      </div>
+      <div class="screen-body">
+        <div
+          style="
+            background: #fee2e2;
+            color: #b91c1c;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+          "
+        >
+          <i class="fas fa-exclamation-circle"></i> ATENCIÓN: Se detectaron 2
+          insumos críticos para la producción de mañana.
+        </div>
+        <table class="stock-table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Insumo</th>
+              <th>Stock Actual</th>
+              <th>Mínimo Req.</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#INS-004</td>
+              <td>Harina Pastelera</td>
+              <td style="font-weight: bold">2.5 KG</td>
+              <td>5.0 KG</td>
+              <td><span class="status-badge st-critical">CRÍTICO</span></td>
+            </tr>
+            <tr>
+              <td>#INS-021</td>
+              <td>Huevos Frescos</td>
+              <td style="font-weight: bold">12 UNID</td>
+              <td>30 UNID</td>
+              <td><span class="status-badge st-critical">CRÍTICO</span></td>
+            </tr>
+            <tr>
+              <td>#INS-008</td>
+              <td>Chocolate Cobertura</td>
+              <td>4.0 KG</td>
+              <td>2.0 KG</td>
+              <td><span class="status-badge st-ok">OK</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="evidence-label">
+      EVIDENCIA 03: Historial Digital del Cliente (CRM)
+    </div>
+    <div class="screen-container">
+      <div class="screen-header">
+        <div class="window-controls">
+          <div class="dot red"></div>
+          <div class="dot yellow"></div>
+          <div class="dot green"></div>
+        </div>
+        <div class="app-title">Punto de Venta - Perfil Cliente</div>
+        <i class="fas fa-user-check"></i>
+      </div>
+      <div class="screen-body">
+        <div class="crm-layout">
+          <div class="profile-card">
+            <div class="avatar"><i class="fas fa-user"></i></div>
+            <div class="client-name">Juan Pérez</div>
+            <div class="loyalty-tag">
+              <i class="fas fa-star"></i> Cliente Frecuente
+            </div>
+            <div
+              style="
+                font-size: 11px;
+                color: #64748b;
+                margin-top: 15px;
+                text-align: left;
+              "
+            >
+              <p>
+                <i class="fas fa-birthday-cake"></i> Cumpleaños:
+                <strong>25 Octubre</strong>
+              </p>
+              <p><i class="fas fa-envelope"></i> juan.perez@mail.com</p>
+              <p>
+                <i class="fas fa-coins"></i> Puntos: <strong>450 pts</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="history-list">
+            <h4
+              style="
+                margin-top: 0;
+                color: #334155;
+                font-size: 12px;
+                border-bottom: 2px solid #e2e8f0;
+                padding-bottom: 5px;
+              "
+            >
+              ÚLTIMAS COMPRAS
+            </h4>
+            <div class="history-item">
+              <div>
+                <div class="item-desc">1x Torta Helada Familiar</div>
+                <div class="item-date">Hace 3 días (Tienda)</div>
+              </div>
+              <div style="font-weight: bold; color: #059669">S/. 45.00</div>
+            </div>
+            <div class="history-item">
+              <div>
+                <div class="item-desc">6x Empanadas de Carne</div>
+                <div class="item-date">Hace 1 semana (Delivery)</div>
+              </div>
+              <div style="font-weight: bold; color: #059669">S/. 24.00</div>
+            </div>
+            <div
+              style="
+                margin-top: 15px;
+                background: #f0fdf4;
+                color: #15803d;
+                padding: 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                font-weight: bold;
+                text-align: center;
+              "
+            >
+              💡 RECOMENDACIÓN IA: Ofrecer descuento en "Pie de Manzana"
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="evidence-label">
+      EVIDENCIA 04: Ticket Electrónico Transparente
+    </div>
+    <div class="ticket-wrapper">
+      <div class="t-header">
+        <h2 style="margin: 0; font-size: 16px">EL POSTRECITO</h2>
+        <div>RUC: 10458899221</div>
+        <div>Av. Fátima 123, Trujillo</div>
+        <div style="margin-top: 5px">TICKET BOLETA #B001-4992</div>
+      </div>
+
+      <div style="border-bottom: 1px dashed #000; margin-bottom: 10px"></div>
+
+      <div class="t-row">
+        <span>1x Torta Chocolate</span>
+        <span>45.00</span>
+      </div>
+      <div class="t-row">
+        <span>2x Café Americano</span>
+        <span>12.00</span>
+      </div>
+
+      <div class="t-total t-row">
+        <span>TOTAL A PAGAR</span>
+        <span>S/. 57.00</span>
+      </div>
+
+      <div style="margin-top: 10px; font-size: 10px">
+        <div class="t-row"><span>Op. Gravada:</span><span>48.31</span></div>
+        <div class="t-row"><span>IGV (18%):</span><span>8.69</span></div>
+      </div>
+
+      <div
+        style="
+          border-top: 1px dashed #ccc;
+          margin-top: 10px;
+          padding-top: 10px;
+          text-align: center;
+        "
+      >
+        <strong>¡Ganaste +57 Puntos!</strong><br />
+        Saldo actual: 120 pts
+      </div>
+
+      <div class="t-footer">
+        GRACIAS POR SU PREFERENCIA<br />
+        www.elpostrecitodefatima.com
+      </div>
+    </div>
+  </body>
+</html>

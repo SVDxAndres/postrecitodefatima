@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Escenario 1: Lógica de Producción</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Share+Tech+Mono&display=swap");
+
+      body {
+        background: #e2e8f0;
+        font-family: "Roboto", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: 300px 350px 300px 200px; /* AS-IS | LOGIC | TO-BE | LEGEND */
+        gap: 20px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ESTILOS DE PANELES */
+      .panel {
+        border-radius: 8px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: relative;
+      }
+      .panel-title {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-size: 14px;
+      }
+
+      /* 1. AS-IS (ROJO) */
+      .p-asis {
+        background: #fef2f2;
+        border: 2px solid #ef4444;
+      }
+      .p-asis .panel-title {
+        color: #ef4444;
+        border-bottom: 2px solid #ef4444;
+      }
+      .step-bad {
+        background: white;
+        border: 1px solid #fca5a5;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        color: #7f1d1d;
+      }
+
+      /* 2. LÓGICA (AZUL - EL CEREBRO) */
+      .p-logic {
+        background: #eff6ff;
+        border: 2px solid #3b82f6;
+      }
+      .p-logic .panel-title {
+        color: #3b82f6;
+        border-bottom: 2px solid #3b82f6;
+      }
+
+      .flow-step {
+        background: white;
+        border: 1px solid #bfdbfe;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .flow-arrow {
+        text-align: center;
+        color: #3b82f6;
+        font-size: 18px;
+        line-height: 10px;
+      }
+      .tech-tag {
+        font-family: "Share Tech Mono";
+        font-size: 10px;
+        background: #1e293b;
+        color: #00ff9d;
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin-left: auto;
+      }
+
+      /* 3. TO-BE (VERDE) */
+      .p-tobe {
+        background: #f0fdf4;
+        border: 2px solid #22c55e;
+      }
+      .p-tobe .panel-title {
+        color: #15803d;
+        border-bottom: 2px solid #22c55e;
+      }
+      .step-good {
+        background: #dcfce7;
+        border: 1px solid #86efac;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        color: #14532d;
+        font-weight: bold;
+      }
+
+      /* 4. LEYENDA (GRIS) */
+      .p-legend {
+        background: #f8fafc;
+        border-left: 1px solid #cbd5e1;
+        padding-left: 15px;
+      }
+      .legend-title {
+        font-size: 12px;
+        font-weight: bold;
+        color: #64748b;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: #475569;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .icon-box {
+        width: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="panel p-asis">
+        <div class="panel-title">1. Problema (AS-IS)</div>
+        <div class="step-bad">
+          <i class="fas fa-cash-register"></i> Venta Registrada
+        </div>
+        <div style="text-align: center; color: #ef4444; font-size: 20px">⬇</div>
+        <div class="step-bad" style="opacity: 0.6">
+          <i class="fas fa-unlink"></i> Conexión Rota
+        </div>
+        <div class="step-bad" style="background: #fee2e2">
+          <i class="fas fa-exclamation-triangle"></i> Almacén No se entera
+        </div>
+        <div
+          style="
+            margin-top: auto;
+            font-size: 11px;
+            text-align: center;
+            color: #ef4444;
+          "
+        >
+          Resultado: Stock Fantasma
+        </div>
+      </div>
+
+      <div class="panel p-logic">
+        <div class="panel-title">2. Lógica Interna (TI)</div>
+
+        <div class="flow-step">
+          <i class="fas fa-search"></i>
+          <div>Detectar ID Producto</div>
+          <span class="tech-tag">INPUT</span>
+        </div>
+        <div class="flow-arrow">⬇</div>
+
+        <div class="flow-step">
+          <i class="fas fa-book-open"></i>
+          <div>Leer Receta (BOM)</div>
+          <span class="tech-tag">QUERY</span>
+        </div>
+        <div class="flow-arrow">⬇</div>
+
+        <div class="flow-step">
+          <i class="fas fa-calculator"></i>
+          <div>Calcular: Stock - Insumo</div>
+          <span class="tech-tag">MATH</span>
+        </div>
+        <div class="flow-arrow">⬇</div>
+
+        <div class="flow-step">
+          <i class="fas fa-database"></i>
+          <div>Actualizar Kardex</div>
+          <span class="tech-tag">UPDATE</span>
+        </div>
+      </div>
+
+      <div class="panel p-tobe">
+        <div class="panel-title">3. Solución (TO-BE)</div>
+        <div class="step-good">
+          <i class="fas fa-check-circle"></i> Venta OK
+        </div>
+        <div style="text-align: center; color: #15803d; font-size: 20px">⬇</div>
+        <div class="step-good">
+          <i class="fas fa-bolt"></i> Trigger Automático
+        </div>
+        <div style="text-align: center; color: #15803d; font-size: 20px">⬇</div>
+        <div class="step-good"><i class="fas fa-boxes"></i> Stock Exacto</div>
+        <div
+          style="
+            margin-top: auto;
+            font-size: 11px;
+            text-align: center;
+            color: #15803d;
+          "
+        >
+          Resultado: Reposición a tiempo
+        </div>
+      </div>
+
+      <div class="p-legend">
+        <div class="legend-title">LEYENDA TÉCNICA</div>
+
+        <div class="legend-item">
+          <div class="icon-box">
+            <i class="fas fa-unlink" style="color: #ef4444"></i>
+          </div>
+          <div>
+            <strong>Desconexión:</strong> Fallo de comunicación entre procesos.
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="icon-box">
+            <span class="tech-tag" style="background: #3b82f6; color: white"
+              >BOM</span
+            >
+          </div>
+          <div>
+            <strong>Bill of Materials:</strong> Lista detallada de ingredientes
+            por receta.
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="icon-box">
+            <i class="fas fa-bolt" style="color: #15803d"></i>
+          </div>
+          <div>
+            <strong>Trigger:</strong> Disparador de BD que ejecuta acciones
+            automáticas.
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="icon-box">
+            <i class="fas fa-database" style="color: #64748b"></i>
+          </div>
+          <div>
+            <strong>Kardex:</strong> Registro digital de entradas y salidas de
+            almacén.
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

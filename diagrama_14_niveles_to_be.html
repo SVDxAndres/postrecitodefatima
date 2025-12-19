@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagrama TO-BE - El Postrecito de Fátima</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- 1. VARIABLES Y RESET --- */
+      :root {
+        --ucv-blue: #003366; /* Azul Identidad UCV */
+        --tobe-green: #059669; /* Verde Principal (TO-BE) */
+        --tobe-light: #d1fae5; /* Verde Claro Fondos */
+        --tobe-border: #34d399; /* Verde Bordes */
+
+        --brand-pink: #ec008c;
+        --gray-header: #f1f5f9;
+        --border-color: #94a3b8;
+        --text-dark: #1e293b;
+
+        --cell-width: 160px; /* Ancho columnas de tiempo */
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Roboto, sans-serif;
+      }
+
+      body {
+        background-color: #f8fafc;
+        padding: 20px;
+        color: var(--text-dark);
+        display: inline-block;
+        min-width: 100%;
+      }
+
+      /* --- 2. CONTENEDOR LIENZO --- */
+      .canvas-wrapper {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: max-content;
+        min-width: 100%;
+        border-top: 5px solid var(--tobe-green);
+      }
+
+      /* --- 3. HEADER --- */
+      .header-ucv {
+        border: 2px solid var(--tobe-green);
+        border-radius: 12px;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        background: white;
+      }
+
+      .brand-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .logo-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 2px solid var(--brand-pink);
+        padding: 2px;
+        object-fit: contain;
+      }
+
+      .brand-text h2 {
+        color: var(--ucv-blue);
+        font-size: 1rem;
+        font-weight: 800;
+        margin-bottom: 2px;
+      }
+      .brand-text h1 {
+        color: var(--brand-pink);
+        font-size: 1.1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .info-table {
+        border-collapse: collapse;
+        font-size: 0.8rem;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .info-table th {
+        background-color: var(--tobe-light);
+        color: var(--ucv-blue);
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 6px 15px;
+        border: 1px solid var(--tobe-border);
+      }
+      .info-table td {
+        background-color: white;
+        padding: 6px 15px;
+        border: 1px solid var(--tobe-border);
+        text-align: center;
+        font-weight: 500;
+      }
+
+      .title-section {
+        text-align: right;
+        color: var(--tobe-green);
+      }
+      .title-section h3 {
+        font-size: 1.3rem;
+        font-weight: 900;
+        margin-bottom: 2px;
+      }
+      .title-section p {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #64748b;
+      }
+
+      /* --- 4. GRID --- */
+      .process-grid {
+        display: grid;
+        /* 1 col nivel + 1 col titulo + 9 cols tiempo */
+        grid-template-columns: 40px 140px repeat(9, var(--cell-width));
+        grid-auto-rows: minmax(70px, auto);
+        gap: 1px;
+        background-color: var(--border-color);
+        border: 1px solid var(--border-color);
+      }
+
+      .cell {
+        background-color: white;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: relative;
+        font-size: 0.75rem;
+      }
+
+      .lvl-num {
+        background-color: #64748b;
+        color: white;
+        font-weight: bold;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+      .lvl-title {
+        background-color: var(--gray-header);
+        color: var(--ucv-blue);
+        font-weight: 700;
+        align-items: flex-start;
+        text-align: left;
+        padding-left: 10px;
+      }
+
+      /* --- ELEMENTOS TO-BE --- */
+      .time-badge {
+        background: #ecfdf5;
+        color: #047857;
+        border: 1px dashed #10b981;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-weight: 700;
+        width: 80%;
+      }
+
+      .doc-digital {
+        background: #eff6ff;
+        border: 1px solid #3b82f6;
+        color: #1e40af;
+        border-bottom-right-radius: 12px;
+        padding: 6px;
+        width: 90%;
+        font-weight: 600;
+        box-shadow: 2px 2px 0 rgba(59, 130, 246, 0.2);
+      }
+
+      .flow-sys {
+        background-color: var(--tobe-green);
+        color: white;
+        padding: 8px;
+        border-radius: 6px;
+        width: 90%;
+        font-weight: 600;
+        box-shadow: 0 3px 6px rgba(5, 150, 105, 0.3);
+        z-index: 2;
+        border: 1px solid #047857;
+      }
+
+      .flow-user {
+        background-color: var(--ucv-blue);
+        color: white;
+        padding: 8px;
+        border-radius: 6px;
+        width: 90%;
+        font-weight: 600;
+        box-shadow: 0 3px 6px rgba(0, 51, 102, 0.3);
+        z-index: 2;
+      }
+
+      .flow-diamond {
+        width: 50px;
+        height: 50px;
+        background-color: var(--tobe-green);
+        color: white;
+        transform: rotate(45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px;
+        z-index: 2;
+      }
+      .flow-diamond span {
+        transform: rotate(-45deg);
+        font-size: 0.65rem;
+        font-weight: bold;
+      }
+
+      .start-end {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 0.7rem;
+        z-index: 2;
+      }
+
+      .arrow-next {
+        position: absolute;
+        right: -12px;
+        color: var(--tobe-green);
+        z-index: 5;
+        font-size: 1.2rem;
+      }
+
+      .module-box {
+        background: #f0fdf4;
+        border: 2px solid #16a34a;
+        color: #15803d;
+        font-weight: 700;
+        padding: 6px;
+        width: 95%;
+        border-radius: 4px;
+      }
+
+      .risk-tech {
+        background-color: #fff1f2;
+        color: #be123c;
+        border: 1px solid #fb7185;
+        padding: 4px;
+        width: 100%;
+        font-weight: 600;
+        font-size: 0.7rem;
+        border-radius: 3px;
+      }
+
+      /* --- ARREGLO DE LA LEYENDA (FIX) --- */
+      .legend-cell {
+        grid-column: span 9; /* Abarca exactamente las columnas restantes */
+        background: white; /* Fondo blanco para tapar lo gris */
+        display: flex; /* Activamos Flexbox */
+        flex-direction: row; /* Forzamos HORIZONTAL */
+        align-items: center; /* Centrado vertical */
+        justify-content: center; /* Centrado horizontal */
+        gap: 25px; /* Espacio entre items */
+        padding: 0 20px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.8rem;
+        white-space: nowrap; /* Evita que el texto baje de línea */
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="canvas-wrapper">
+      <header class="header-ucv">
+        <div class="brand-section">
+          <img
+            src="Logo Postrecito Fatima.jpg"
+            alt="Logo"
+            class="logo-circle"
+            style="background: #eee"
+          />
+          <div class="brand-text">
+            <h2>UCV PREGRADO</h2>
+            <h1>EL POSTRECITO DE FÁTIMA</h1>
+          </div>
+        </div>
+
+        <table class="info-table">
+          <thead>
+            <tr>
+              <th>ASIGNATURA</th>
+              <th>ALUMNO</th>
+              <th>FECHA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GERENCIA DE LA TECNOLOGÍA DE LA INFORMACIÓN</td>
+              <td>Andrés (Ing. Sistemas)</td>
+              <td>19-12-2025</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="title-section">
+          <h3>DIAGRAMA DE DESPLIEGUE (TO-BE)</h3>
+          <p>PROCESO AUTOMATIZADO CON SISTEMA WEB</p>
+        </div>
+      </header>
+
+      <div class="process-grid">
+        <div class="cell lvl-num">01</div>
+        <div class="cell lvl-title">Planificación<br />Temporal</div>
+        <div class="cell"></div>
+        <div class="cell"><div class="time-badge">Inmediato</div></div>
+        <div class="cell"><div class="time-badge">10 seg</div></div>
+        <div class="cell"></div>
+        <div class="cell"><div class="time-badge">1 seg</div></div>
+        <div class="cell"><div class="time-badge">1 seg</div></div>
+        <div class="cell"><div class="time-badge">30 seg</div></div>
+        <div class="cell"><div class="time-badge">Variable</div></div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">02</div>
+        <div class="cell lvl-title">Documentos de<br />Origen Externo</div>
+        <div class="cell"></div>
+        <div class="cell">
+          <div class="doc-digital">Catálogo Web<br />QR</div>
+        </div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell">
+          <div class="doc-digital">Ticket Digital<br />(Sistema)</div>
+        </div>
+        <div class="cell">
+          <div class="doc-digital">Voucher Elec.<br />(POS)</div>
+        </div>
+        <div class="cell">
+          <div class="doc-digital">Comanda KDS<br />(Pantalla)</div>
+        </div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">03</div>
+        <div class="cell lvl-title">Línea de<br />Progreso</div>
+        <div class="cell">
+          <div class="start-end" style="background: var(--tobe-green)">
+            INICIO
+          </div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="flow-user">Selecciona<br />App/Web</div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="flow-sys">Consulta DB<br />Stock</div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="flow-diamond"><span>¿Stock?</span></div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+          <span
+            style="
+              position: absolute;
+              bottom: 0;
+              color: red;
+              font-size: 9px;
+              font-weight: bold;
+            "
+            >No</span
+          >
+          <span
+            style="
+              position: absolute;
+              top: 0;
+              right: 0;
+              color: green;
+              font-size: 9px;
+              font-weight: bold;
+            "
+            >Sí</span
+          >
+        </div>
+        <div class="cell">
+          <div class="flow-sys">Carga Precio<br />Oficial (DB)</div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="flow-sys">Genera Orden<br />& Resta Stock</div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="flow-user">Pago Digital<br />(Yape/POS)</div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="flow-user">Producción &<br />Entrega</div>
+          <i class="fa-solid fa-arrow-right arrow-next"></i>
+        </div>
+        <div class="cell">
+          <div class="start-end" style="background: #334155">FIN</div>
+        </div>
+
+        <div class="cell lvl-num">04</div>
+        <div class="cell lvl-title">Responsable</div>
+        <div class="cell"></div>
+        <div class="cell">Cliente</div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          SISTEMA
+        </div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          SISTEMA
+        </div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          SISTEMA
+        </div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          SISTEMA
+        </div>
+        <div class="cell">Cajera</div>
+        <div class="cell">Pastelero</div>
+        <div class="cell">Cliente</div>
+
+        <div class="cell lvl-num">05</div>
+        <div class="cell lvl-title">Entradas y<br />Salidas</div>
+        <div class="cell">Acceso</div>
+        <div class="cell">Selección</div>
+        <div class="cell">Query SQL</div>
+        <div class="cell">Estado</div>
+        <div class="cell">Monto Exacto</div>
+        <div class="cell">ID Venta</div>
+        <div class="cell">Voucher</div>
+        <div class="cell">Producto</div>
+        <div class="cell">Fidelización</div>
+
+        <div class="cell lvl-num">06</div>
+        <div class="cell lvl-title">Punto Crítico<br />(PC)</div>
+        <div class="cell"></div>
+        <div class="cell">UX/UI</div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          Conexión DB
+        </div>
+        <div class="cell"></div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          Integridad DB
+        </div>
+        <div class="cell" style="color: var(--tobe-green); font-weight: bold">
+          Trigger SQL
+        </div>
+        <div class="cell">Pasarela</div>
+        <div class="cell">Calidad</div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">07</div>
+        <div class="cell lvl-title">Procedimiento<br />Documentado</div>
+        <div class="cell"></div>
+        <div class="cell">Manual Usu.</div>
+        <div class="cell">Lógica Back</div>
+        <div class="cell"></div>
+        <div class="cell">Política $</div>
+        <div class="cell">Control Kardex</div>
+        <div class="cell">Cierre Caja</div>
+        <div class="cell">BPM (Cocina)</div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">08</div>
+        <div class="cell lvl-title">Registro</div>
+        <div class="cell"></div>
+        <div class="cell"><div class="doc-digital">Log Acceso</div></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell">
+          <div class="doc-digital">DB: Ventas<br />DB: Kardex</div>
+        </div>
+        <div class="cell"><div class="doc-digital">DB: Pagos</div></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">09</div>
+        <div class="cell lvl-title">Comentario</div>
+        <div class="cell"></div>
+        <div class="cell" style="font-style: italic">Auto-servicio</div>
+        <div class="cell" style="font-style: italic">Stock Real</div>
+        <div class="cell"></div>
+        <div class="cell" style="font-style: italic">Cero error</div>
+        <div class="cell" style="font-style: italic">Baja automática</div>
+        <div class="cell" style="font-style: italic">Cuadre exacto</div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">10</div>
+        <div class="cell lvl-title">Indicadores</div>
+        <div class="cell"></div>
+        <div class="cell">% Conversión</div>
+        <div class="cell">Disponibilidad</div>
+        <div class="cell"></div>
+        <div class="cell">Ticket Prom.</div>
+        <div class="cell">Exactitud Inv.</div>
+        <div class="cell">Tiempo Aten.</div>
+        <div class="cell"></div>
+        <div class="cell">NPS</div>
+
+        <div class="cell lvl-num">11</div>
+        <div class="cell lvl-title">Objetivos</div>
+        <div class="cell"></div>
+        <div class="cell">Facilitar</div>
+        <div class="cell">Asegurar</div>
+        <div class="cell">Validar</div>
+        <div class="cell">Estandarizar</div>
+        <div class="cell">Automatizar</div>
+        <div class="cell">Agilizar</div>
+        <div class="cell">Cumplir</div>
+        <div class="cell">Retener</div>
+
+        <div class="cell lvl-num">12</div>
+        <div class="cell lvl-title">Módulo del<br />Sistema</div>
+        <div class="cell"></div>
+        <div class="cell"><div class="module-box">Mód. Catálogo</div></div>
+        <div class="cell"><div class="module-box">Mód. Inventario</div></div>
+        <div class="cell"></div>
+        <div class="cell"><div class="module-box">Base Datos</div></div>
+        <div class="cell"><div class="module-box">Mód. Ventas</div></div>
+        <div class="cell"><div class="module-box">Mód. Caja</div></div>
+        <div class="cell"><div class="module-box">Mód. Cocina</div></div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">13</div>
+        <div class="cell lvl-title">Gestión de<br />Riesgos TI</div>
+        <div class="cell"></div>
+        <div class="cell"><div class="risk-tech">Caída Web</div></div>
+        <div class="cell"><div class="risk-tech">Latencia</div></div>
+        <div class="cell"></div>
+        <div class="cell"><div class="risk-tech">Datos Error</div></div>
+        <div class="cell"><div class="risk-tech">Fallo Backup</div></div>
+        <div class="cell"><div class="risk-tech">Corte Internet</div></div>
+        <div class="cell"><div class="risk-tech">Fallo Pantalla</div></div>
+        <div class="cell"></div>
+
+        <div class="cell lvl-num">14</div>
+        <div class="cell lvl-title">Leyenda</div>
+        <div class="cell legend-cell">
+          <div class="legend-item">
+            <span class="dot" style="background: var(--ucv-blue)"></span> Acción
+            Humana
+          </div>
+          <div class="legend-item">
+            <span class="dot" style="background: var(--tobe-green)"></span>
+            Acción Sistema (Automática)
+          </div>
+          <div class="legend-item">
+            <span
+              class="dot"
+              style="border: 1px solid #3b82f6; background: #eff6ff"
+            ></span>
+            Documento Digital
+          </div>
+          <div class="legend-item">
+            <strong style="color: var(--tobe-green)">PC:</strong> Punto Crítico
+            Técnico
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
